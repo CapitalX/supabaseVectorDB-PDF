@@ -1,0 +1,70 @@
+import { PdfVectorLoader } from '../utils/PdfVectorLoader';
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config();
+
+async function loadPdfToSupabase() {
+  console.log('Starting PDF loading process...');
+  
+  try {
+    console.log('Checking environment variables...');
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY || !process.env.OPENAI_API_KEY) {
+      throw new Error('Missing required environment variables');
+    }
+
+    // Initialize the loader with your credentials
+    console.log('Initializing PdfVectorLoader...');
+    const loader = new PdfVectorLoader(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY,
+      process.env.OPENAI_API_KEY,
+      'text-embedding-ada-002'
+    );
+
+    // Just the new reporting PDF
+    const pdfPaths = [
+      '/Users/itscapitalx/Desktop/xanadu_reporting.pdf'  // Path to your reporting PDF
+    ];
+    console.log('PDF paths:', pdfPaths.map(p => path.basename(p)));
+
+    // Load to the existing table
+    console.log('Starting PDF processing...');
+    await loader.loadPdfsToVectorStore(
+      pdfPaths,
+      'now_gpt_xanadu_release_notes',  // Your existing table name
+      500,
+      50
+    );
+
+    // Test a reporting-specific query
+    console.log('Testing search functionality...');
+    const searchResults = await loader.searchSimilarContent(
+      'now_gpt_xanadu_release_notes',
+      'How do I create custom reports?',
+      5,
+      0.7
+    );
+    
+    console.log('Search results:', JSON.stringify(searchResults, null, 2));
+  } catch (error) {
+    console.error('Error in loadPdfToSupabase:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      details: error
+    });
+    throw error;
+  }
+}
+
+console.log('Script started');
+loadPdfToSupabase()
+  .then(() => console.log('Script completed successfully'))
+  .catch(error => {
+    console.error('Script failed:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      details: error
+    });
+    process.exit(1);
+  }); 

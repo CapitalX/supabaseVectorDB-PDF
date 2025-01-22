@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@langchain/community": "^0.3.26",
+    "@langchain/core": "^0.3.33",
+    "@langchain/openai": "^0.3.17",
+    "@supabase/supabase-js": "^2.48.0",
+    "dotenv": "^16.4.7",
+    "langchain": "^0.3.12",
+    "openai": "^4.80.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
