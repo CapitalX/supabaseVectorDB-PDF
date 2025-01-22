@@ -1,4 +1,4 @@
-# ServiceNow Documentation RAG System
+# PDF Documentation RAG System
 
 A TypeScript-based system for processing ServiceNow PDF documentation into a vector database with semantic search capabilities. The system uses LangChain, OpenAI embeddings, and Supabase for vector storage.
 
