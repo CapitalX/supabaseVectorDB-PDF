@@ -24,7 +24,7 @@ async function loadPdfToSupabase() {
 
     // Just the new reporting PDF
     const pdfPaths = [
-      '/Users/itscapitalx/Desktop/xanadu_reporting.pdf'  // Path to your reporting PDF
+      '/path/to/your/pdf.pdf'  // Path to your PDF
     ];
     console.log('PDF paths:', pdfPaths.map(p => path.basename(p)));
 
@@ -32,7 +32,7 @@ async function loadPdfToSupabase() {
     console.log('Starting PDF processing...');
     await loader.loadPdfsToVectorStore(
       pdfPaths,
-      'now_gpt_xanadu_release_notes',  // Your existing table name
+      'insert_table_name_here',  
       500,
       50
     );
@@ -40,8 +40,8 @@ async function loadPdfToSupabase() {
     // Test a reporting-specific query
     console.log('Testing search functionality...');
     const searchResults = await loader.searchSimilarContent(
-      'now_gpt_xanadu_release_notes',
-      'How do I create custom reports?',
+      'insert_table_name_here',
+      'Ask a question about something?',
       5,
       0.7
     );

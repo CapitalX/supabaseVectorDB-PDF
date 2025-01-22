@@ -22,7 +22,7 @@ async function searchPdf(query: string) {
   );
 
   const results = await loader.searchSimilarContent(
-    'now_gpt_xanadu_release_notes',
+    'insert_table_name_here',
     query,
     5,  // Increased to 5 results
     0.7
@@ -39,11 +39,11 @@ async function searchPdf(query: string) {
 
 // Test questions about both release notes and reporting
 const testQueries = [
-  "What are the new reporting features in Xanadu?",
-  "How do I create custom reports?",
-  "What are the main features of the Xanadu release?",
-  "Tell me about reporting capabilities",
-  "What dashboards are available?"
+  "What is the main purpose of this document?",
+  "Can you summarize the key features?", 
+  "How do I get started with this system?",
+  "What are the technical requirements?",
+  "Tell me about the configuration options"
 ];
 
 // Run all test queries
